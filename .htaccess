@@ -1,0 +1,22 @@
+RewriteEngine On
+RewriteBase /LACUPONERA/
+
+#REGLA APRA OFERTAS
+RewriteRule ^ofertas/([0-9]+)$ index.php?rubro=$1 [L]
+RewriteRule ^ofertas/?$ index.php [L]
+
+#REGLA PARA LOGIN
+RewriteRule ^Login/?$ Views/Clientes/Login.php [L]
+RewriteRule ^procesar-login$ controllers/Clientes/ProcesarLoginController.php [L]
+RewriteRule ^dashboard/?$ Views/Clientes/dashboard.php [L]
+
+#REGLA PARA REGISTRO CLIENTE
+RewriteRule ^registro$ Views/Clientes/Registro_cliente.php [L]
+#REGLA PARA PROCESAR REGISTRO CLIENTE (Enviar formulario)
+RewriteRule ^clientes/registrar/?$ controllers/Clientes/ClienteController.php [L]
+
+#REGLA PARA CONFIRMAR TOKEN
+RewriteRule ^verificar-token$ controllers/Clientes/VerificartokenController.php [L]
+RewriteRule ^confirmar_token/?$ Views/Clientes/Confirmar_token.php [L]
+
+

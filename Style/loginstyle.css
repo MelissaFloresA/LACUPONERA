@@ -1,0 +1,109 @@
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(45deg, #5c8dbc, #6fa3d1);
+    font-family: 'Poppins', sans-serif;
+    animation: gradientAnimation 6s infinite alternate;
+}
+
+@keyframes gradientAnimation {
+    0% { background: linear-gradient(45deg, #5c8dbc, #6fa3d1); }
+    100% { background: linear-gradient(45deg, #709cc7, #6e97c5); }
+}
+
+.container:hover {
+    transform: scale(1.05);
+}
+
+h2 {
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    animation: fadeInDown 1s ease-in-out;
+}
+
+.form-label {
+    font-weight: 600;
+    color: white;
+}
+
+.form-control {
+    border-radius: 8px;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.form-control:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.btn-primary {
+    background: linear-gradient(to right, #70a1d7, #5b8fb6);
+    color: white;
+    padding: 12px;
+    border-radius: 50px;
+    width: 100%;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(to right, #5b8fb6, #c0d4e9);
+    transform: scale(1.05);
+}
+
+a {
+    color: #a3b3c5;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    transition: all 0.3s;
+}
+
+a:hover {
+    text-decoration: underline;
+    transform: scale(1.05);
+}
+
+.alert {
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 10px;
+    background-color: rgba(255, 0, 0, 0.7);
+    color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 1s ease-in-out;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
