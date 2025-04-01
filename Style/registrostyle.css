@@ -5,7 +5,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 140vh;
     background: linear-gradient(to right, #3482a1, #4782b3); 
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -75,7 +75,7 @@ h1 {
 }
 
 .btn-primary {
-    background: linear-gradient(to right, #3482a1, #4782b3);
+    background: linear-gradient(to right, #30738d, #3b73a1);
     color: white;
     padding: 12px;
     border-radius: 50px;
@@ -90,12 +90,8 @@ h1 {
 }
 
 .btn-primary:hover {
-    background: linear-gradient(to right, #8bc34a, #4caf50);
-    transform: scale(1.05);
-}
-
-button:focus {
-    outline: none;
+    background: linear-gradient(to right, #30738d, #3b73a1);  
+    transform:scale(1.05);
 }
 
 a {

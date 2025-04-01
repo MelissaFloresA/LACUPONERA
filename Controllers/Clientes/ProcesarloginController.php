@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $clienteModel->obtenerClientePorCorreo($username);
 
         if ($user) {
-            if ($password === $user[0]["Contrasena"]) {
+            if (hash('sha256',$password) === $user[0]["Contrasena"]) {
                 if ($user[0]["Estado"] == 0) {
                     // Login exitoso
                     $_SESSION["usuario"] = $username;

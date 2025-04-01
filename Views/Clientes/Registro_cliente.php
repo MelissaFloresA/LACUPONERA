@@ -6,18 +6,11 @@
     <title>Registro de Clientes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <base href="/LACUPONERA/Views/ofertas"> <link rel="stylesheet" href="../Style/registrostyle.css">
-    <style>
-    <style>
-        .error {
-            color: red;
-            font-size: 14px;
-        }
-    </style>
 </head>
 <body class="container">
 
 <div>
-    <h1>Registro de Clientes</h1>
+    <h1>Registro Cliente</h1>
     <form id="formRegistro" action="/LACUPONERA/clientes/registrar" method="POST" onsubmit="return validarFormulario(event);">
         <div class="mb-3">
             <label class="form-label">Nombres</label>
@@ -62,7 +55,7 @@
             <span id="errorContraseña" class="error"></span>
         </div>
 
-        <button type="submit" class="btn btn-primary">Registrar</button>
+        <button type="submit" class="btn btn-primary ">Registro</button>
     </form>
 </div>
 

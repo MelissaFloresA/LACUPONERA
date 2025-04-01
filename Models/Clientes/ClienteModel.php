@@ -45,7 +45,7 @@ class ClienteModel extends Model {
     
             // consulta SQL para insertar el cliente
             $sql = "INSERT INTO cliente (Nombre, Apellido, Dui, Telefono, Direccion, Correo, Contrasena, Token, Estado)
-                    VALUES (:nombre, :apellido, :dui, :telefono, :direccion, :correo, :contrasena, :token, :estado)";
+                    VALUES (:nombre, :apellido, :dui, :telefono, :direccion, :correo, SHA2(:contrasena,256), :token, :estado)";
             var_dump($datos);
            
             $stmt = $this->conn->prepare($sql);
