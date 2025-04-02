@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ':token'      => '',
         ':estado'     => 1
     ];
-    var_dump($datos);
+
     // validacion de campos vacios
     if (!empty($datos[':nombre']) && !empty($datos[':apellido']) && !empty($datos[':dui']) &&
         !empty($datos[':telefono']) && !empty($datos[':direccion']) && !empty($datos[':correo']) &&
