@@ -8,13 +8,14 @@ function validarFormulario(event) {
     let direccion = document.getElementById("txtdireccion").value.trim();
     let dui = document.getElementById("txtdui").value.trim();
     let contraseña = document.getElementById("txtcontraseña").value.trim();
+    let contraseña2 = document.getElementById("txtcontraseña2").value.trim();
 
     let regexNombre = /^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]+$/;
     let regexDUI = /^\d{8}-?\d{1}$/; 
-    let regexTelefono = /^\d{8}$/; 
+    let regexTelefono = /^[267]{1}[0-9]{3}-[0-9]{4}$/;
     let regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  
 
-    
+    // Limpiar mensajes de error
     document.getElementById("errorNombre").textContent = "";
     document.getElementById("errorApellido").textContent = "";
     document.getElementById("errorTelefono").textContent = "";
@@ -22,7 +23,9 @@ function validarFormulario(event) {
     document.getElementById("errorDireccion").textContent = "";
     document.getElementById("errorDUI").textContent = "";
     document.getElementById("errorContraseña").textContent = "";
+    document.getElementById("errorContraseña2").textContent = "";
 
+    // Validaciones
     if (nombre === "") {
         document.getElementById("errorNombre").textContent = "Ingrese su nombre.";
         esValido = false;
@@ -43,7 +46,7 @@ function validarFormulario(event) {
         document.getElementById("errorTelefono").textContent = "Ingrese su teléfono.";
         esValido = false;
     } else if (!regexTelefono.test(telefono)) {
-        document.getElementById("errorTelefono").textContent = "El teléfono debe tener 8 dígitos.";
+        document.getElementById("errorTelefono").textContent = "El teléfono debe tener 8 dígitos y comenzar con 2, 6 o 7.";
         esValido = false;
     }
 
@@ -71,11 +74,43 @@ function validarFormulario(event) {
     if (contraseña === "") {
         document.getElementById("errorContraseña").textContent = "Ingrese una contraseña.";
         esValido = false;
+    } else if (contraseña.length < 6) {
+        document.getElementById("errorContraseña").textContent = "La contraseña debe tener al menos 6 caracteres.";
+        esValido = false;
     }
-    
-    if (esValido) {
-        document.getElementById("formRegistro").submit(); // Envía manualmente
+
+    if (contraseña2 === "") {
+        document.getElementById("errorContraseña2").textContent = "Repita su contraseña.";
+        esValido = false;
+    } else if (contraseña !== contraseña2) {
+        document.getElementById("errorContraseña2").textContent = "Las contraseñas no coinciden.";
+        esValido = false;
     }
-    
+
     return esValido;
+}
+function soloNumeros(e) {
+    const tecla = e.key;
+    return /^[0-9]$/.test(tecla);
+}
+
+function soloNumerosDUI(e) {
+    const tecla = e.key;
+    return /^[0-9\-]$/.test(tecla);
+}
+
+function formatearTelefono(input) {
+    let valor = input.value.replace(/\D/g, ''); // Solo dígitos
+    if (valor.length > 4) {
+        valor = valor.slice(0, 4) + '-' + valor.slice(4, 8);
+    }
+    input.value = valor.slice(0, 9); // Limita a 9 caracteres totales
+}
+
+function formatearDUI(input) {
+    let valor = input.value.replace(/\D/g, ''); // Solo dígitos
+    if (valor.length > 8) {
+        valor = valor.slice(0, 8) + '-' + valor.slice(8, 9);
+    }
+    input.value = valor.slice(0, 10); // Limita a 10 caracteres totales
 }

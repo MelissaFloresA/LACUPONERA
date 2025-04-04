@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if($clienteModel->verificarDuplicados($datos[':correo'], $datos[':dui'])) {
                 echo "<script>
                         alert('El correo o el DUI ya están registrados. Por favor, utiliza otros datos.');
-                        window.location.href = '/LACUPONERA/registro';
+                        
                       </script>";
                 exit;
             }
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 echo "<script>
                         alert('Error al registar.');
-                        window.location.href = '/LACUPONERA/registro';
+                       
                       </script>";
                 exit;
             }

@@ -2,8 +2,8 @@
 session_start();
 
 // Verificar sesión activa
-if (!isset($_SESSION["usuario"])) {
-    header("Location: /LACUPONERA/Login");
+if (!isset($_SESSION["Nombre"])) {
+    header("Location: /LACUPONERA/login");
     exit;
 }
 

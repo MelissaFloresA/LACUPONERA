@@ -1,22 +1,24 @@
 RewriteEngine On
 RewriteBase /LACUPONERA/
 
-#REGLA APRA OFERTAS
-RewriteRule ^ofertas/([0-9]+)$ index.php?rubro=$1 [L]
-RewriteRule ^ofertas/?$ index.php [L]
+#REGLA PARA VISTAS
+RewriteRule ^/?$ Views/OfertasViews.php?action=getCupones [L]
+RewriteRule ^ofertas/?$ Views/OfertasViews.php?action=getCupones [L]
+RewriteRule ^ofertas/([0-9]+)$ Views/OfertasViews.php?action=getCupones&rubro=$1 [L]
+RewriteRule ^mi-carrito/?$ Views/CarritoView.php?action=getCarrito [L]
+RewriteRule ^mis-cupones/?$ Views/HistorialView.php?action=getHistorialCupones [L]
 
-#REGLA PARA LOGIN
-RewriteRule ^Login/?$ Views/Clientes/Login.php [L]
-RewriteRule ^procesar-login$ controllers/Clientes/ProcesarLoginController.php [L]
+RewriteRule ^login/?$ Views/Clientes/Login.php [L]
+RewriteRule ^registro/?$ Views/Clientes/Registro_cliente.php [L]
+RewriteRule ^confirmar_token/?$ Views/Clientes/Confirmar_token.php [L]
 RewriteRule ^dashboard/?$ Views/Clientes/dashboard.php [L]
 
-#REGLA PARA REGISTRO CLIENTE
-RewriteRule ^registro$ Views/Clientes/Registro_cliente.php [L]
-#REGLA PARA PROCESAR REGISTRO CLIENTE (Enviar formulario)
-RewriteRule ^clientes/registrar/?$ controllers/Clientes/ClienteController.php [L]
+#REGLA PARA ACCIONES
+RewriteRule ^cupones/do-agregar?$ Controllers/OfertasController.php?action=agregarCupon [L]
+RewriteRule ^cupones/do-actualizar-cantidad?$ Controllers/OfertasController.php?action=actualizarCantidad [L]
+RewriteRule ^cupones/do-comprar?$ Controllers/OfertasController.php?action=comprarCupones [L]
 
-#REGLA PARA CONFIRMAR TOKEN
-RewriteRule ^verificar-token$ controllers/Clientes/VerificartokenController.php [L]
-RewriteRule ^confirmar_token/?$ Views/Clientes/Confirmar_token.php [L]
-
-
+RewriteRule ^clientes/registrar?$ controllers/ClientesController.php?action=registrar [L]
+RewriteRule ^clientes/verificar-token?$ controllers/ClientesController.php?action=verificarToken [L]
+RewriteRule ^clientes/do-login$ controllers/ClientesController.php?action=login [L]
+RewriteRule ^clientes/do-logout$ controllers/ClientesController.php?action=logout [L]

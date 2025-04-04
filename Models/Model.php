@@ -3,7 +3,7 @@ abstract class Model
 {
     private $host = "localhost";
     private $user = "root";
-    private $password = '';
+    private $password = '1234';
     private $bd_name = 'db_cuponera';
     protected $conn;
 
