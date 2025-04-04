@@ -18,6 +18,7 @@ if (isset($_SESSION['ID_Cliente'])) {
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 	<base href="/LACUPONERA/Views/">
 	<link rel="stylesheet" href="../Style/LoginStyle.css">
+	<link rel="icon" href="../resources/icionito.ico" type="image/png">
 
 </head>
 

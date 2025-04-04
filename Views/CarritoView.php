@@ -22,27 +22,37 @@ if (!isset($_SESSION['ID_Cliente'])) {
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand text-white" href="/LACUPONERA/ofertas">Cupones de Descuento</a>
+            <a class="ms-3  navbar-brand text-white" href="/LACUPONERA/ofertas">
+                <i class="fas fa-tag"></i> Cuponera
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse text-white" id="navbar">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <?php if (isset($_SESSION['ID_Cliente'])): ?>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/LACUPONERA/mi-carrito">Mi Carrito</a>
+                        <li class="nav-item ">
+                            <a class="nav-link text-white" href="/LACUPONERA/mi-carrito">
+                                <i class="fas fa-shopping-cart"></i> Mi Carrito
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/LACUPONERA/mis-cupones">Mis Cupones</a>
+                            <a class="nav-link text-white" href="/LACUPONERA/mis-cupones">
+                                <i class="fas fa-ticket-alt"></i> Mis Cupones
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/LACUPONERA/clientes/do-logout" class="nav-link text-white">Cerrar Sesión</a>
+                            <a class="nav-link text-white" href="/LACUPONERA/clientes/do-logout">
+                                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                            </a>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="/LACUPONERA/login">Iniciar Sesión</a>
+                            <a class="nav-link text-white" href="/LACUPONERA/login">
+                                <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                            </a>
                         </li>
                     <?php endif; ?>
                 </ul>

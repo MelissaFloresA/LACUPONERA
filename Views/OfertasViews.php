@@ -94,7 +94,7 @@ include_once '../Controllers/OfertasController.php';
             <div class="col-4">
                 <img src="<?= $oferta['Imagen'] ?>" alt="Coupon Image" class="img-fluid h-100 rounded-start object-fit-cover">
             </div>
-            <div class="col-8">
+            <div class="col-8 pb-4">
                 <div class="card-body d-flex flex-column justify-content-between h-100 text-white">
                     <div>
                         <h4 class="card-title fw-bold"><?= $oferta['Titulo'] ?></h4>
@@ -105,7 +105,7 @@ include_once '../Controllers/OfertasController.php';
                         <form action="/LACUPONERA/cupones/do-agregar" method="POST" class="mb-3">
                             <input type="hidden" name="ID_Cupon" value="<?= $oferta['ID_Cupon'] ?>">
                             <input type="hidden" name="Monto" value="<?= $oferta['PrecioO'] ?>">
-                            <button class="btn btn-dark rounded-pill my-3 px-4">Añadir al <i class="fa-solid fa-cart-shopping"></i></button>
+                            <button class="btn btn-dark rounded-pill mt-3 px-4">Añadir al <i class="fa-solid fa-cart-shopping"></i></button>
                         </form>
                     <?php endif; ?>
                 </div>
