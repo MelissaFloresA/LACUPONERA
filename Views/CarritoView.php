@@ -76,7 +76,7 @@ if (!isset($_SESSION['ID_Cliente'])) {
                         <div class="card coupon-card flex-row text-white border-0 py-4 px-5 overflow-hidden mb-4">
                             <div class="card-body p-0 mb-4">
                                 <h4 class="card-title fw-bold"><?= $cupon['Titulo'] ?></h4>
-                                <h5 class="fw-bold mb-1"><?= $cupon['PrecioO'] ?> <del class="text-muted">$<?= $cupon['PrecioR'] ?></del></h5>
+                                <h5 class="fw-bold mb-1">$<?= $cupon['PrecioO'] ?> <del class="text-muted">$<?= $cupon['PrecioR'] ?></del></h5>
                                 <p class="mb-1"><?= $cupon['Descripcion'] ?></p>
 
                                 <?php if (isset($_SESSION['ID_Cliente'])): ?>

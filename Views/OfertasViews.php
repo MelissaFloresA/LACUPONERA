@@ -89,37 +89,37 @@ include_once '../Controllers/OfertasController.php';
             <?php if (!empty($ofertas)): ?>
                 <?php foreach ($ofertas as $oferta): ?>
                     <div class="col-md-6 mb-4">
-    <div class="card coupon-card position-relative overflow-hidden border-0  rounded-4">
-        <div class="row g-0">
-            <div class="col-4">
-                <img src="<?= $oferta['Imagen'] ?>" alt="Coupon Image" class="img-fluid h-100 rounded-start object-fit-cover">
-            </div>
-            <div class="col-8 pb-4">
-                <div class="card-body d-flex flex-column justify-content-between h-100 text-white">
-                    <div>
-                        <h4 class="card-title fw-bold"><?= $oferta['Titulo'] ?></h4>
-                        <h5 class="fw-bold mb-1">$<?= $oferta['PrecioO'] ?> <del class="text-muted">$<?= $oferta['PrecioR'] ?></del></h5>
-                        <p class="small mb-2"><?= $oferta['Descripcion'] ?></p>
+                        <div class="card coupon-card position-relative overflow-hidden border-0  rounded-4">
+                            <div class="row g-0">
+                                <div class="col-4">
+                                    <img src="<?= $oferta['Imagen'] ?>" alt="Coupon Image" class="img-fluid h-100 rounded-start object-fit-cover">
+                                </div>
+                                <div class="col-8 pb-4">
+                                    <div class="card-body d-flex flex-column justify-content-between h-100 text-white">
+                                        <div>
+                                            <h4 class="card-title fw-bold"><?= $oferta['Titulo'] ?></h4>
+                                            <h5 class="fw-bold mb-1">$<?= $oferta['PrecioO'] ?> <del class="text-muted">$<?= $oferta['PrecioR'] ?></del></h5>
+                                            <p class="small mb-2"><?= $oferta['Descripcion'] ?></p>
+                                        </div>
+                                        <?php if (isset($_SESSION['ID_Cliente'])): ?>
+                                            <form action="/LACUPONERA/cupones/do-agregar" method="POST" class="mb-3">
+                                                <input type="hidden" name="ID_Cupon" value="<?= $oferta['ID_Cupon'] ?>">
+                                                <input type="hidden" name="Monto" value="<?= $oferta['PrecioO'] ?>">
+                                                <button class="btn btn-dark rounded-pill mt-3 px-4">Añadir al <i class="fa-solid fa-cart-shopping"></i></button>
+                                            </form>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="coupon-footer  text-white-50 d-flex justify-content-between align-items-center px-3 py-2 position-absolute bottom-0 start-0 end-0 rounded-bottom-4 small">
+                                <span>Válido hasta <?= $oferta['Fecha_Final'] ?></span>
+                                <span>Disponibles <?= $oferta['Stock'] ?></span>
+                            </div>
+                            <!-- Circles -->
+                            <div class="circle-left"></div>
+                            <div class="circle-right"></div>
+                        </div>
                     </div>
-                    <?php if (isset($_SESSION['ID_Cliente'])): ?>
-                        <form action="/LACUPONERA/cupones/do-agregar" method="POST" class="mb-3">
-                            <input type="hidden" name="ID_Cupon" value="<?= $oferta['ID_Cupon'] ?>">
-                            <input type="hidden" name="Monto" value="<?= $oferta['PrecioO'] ?>">
-                            <button class="btn btn-dark rounded-pill mt-3 px-4">Añadir al <i class="fa-solid fa-cart-shopping"></i></button>
-                        </form>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-        <div class="coupon-footer  text-white-50 d-flex justify-content-between align-items-center px-3 py-2 position-absolute bottom-0 start-0 end-0 rounded-bottom-4 small">
-            <span>Válido hasta <?= $oferta['Fecha_Final'] ?></span>
-            <span>Disponibles <?= $oferta['Stock'] ?></span>
-        </div>
-        <!-- Circles -->
-        <div class="circle-left"></div>
-        <div class="circle-right"></div>
-    </div>
-</div>
 
                 <?php endforeach; ?>
             <?php else: ?>

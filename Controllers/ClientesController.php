@@ -113,8 +113,7 @@ if (isset($_GET['action'])) {
                                 // Login exitoso
                                 $_SESSION["ID_Cliente"] = $user[0]["ID_Cliente"];
                                 $_SESSION["Nombre"] = $user[0]["Nombre"];
-                                unset($_SESSION['login_error']);
-                                extract(['prueba' => 'prueba']);
+                                $_SESSION["Correo"] = $user[0]["Correo"];
                                 header("Location: /LACUPONERA/dashboard");
                                 exit;
                             } else {

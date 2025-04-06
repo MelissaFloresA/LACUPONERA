@@ -83,21 +83,48 @@ if (isset($_GET['action'])) {
             }
             header("Location: /LACUPONERA/mi-carrito");
             break;
-        case 'comprarCupones':
-            $resultado = $OfertasModel->comprarCupones($_POST["Metodo_Pago"]);
-            if ($resultado) {
-                $_SESSION["Result"] = [
-                    "status" => true,
-                    "mensaje" => "Cupones comprados con éxito",
-                ];
-            } else {
-                $_SESSION["Result"] = [
-                    "status" => false,
-                    "mensaje" => "Error al comprar los cupones",
-                ];
-            }
-            header("Location: /LACUPONERA/");
-            break;
+            case 'comprarCupones':
+                // 1. Obtener cupones que están en el carrito (los que se van a comprar)
+                $cuponesAEnviar = $OfertasModel->getCarrito();
+            
+                // 2. Intentar enviar el correo primero (con los cupones que se van a comprar)
+                $correo = $_SESSION["Correo"];
+                $nombre = $_SESSION["Nombre"];
+                $envioExitoso = false;
+            
+                // Intentamos enviar el correo
+                try {
+                    $OfertasModel->enviarCuponConPDF($correo, $nombre, $cuponesAEnviar);
+                    $envioExitoso = true;
+                } catch (Exception $e) {
+                    // Si el correo falla, podemos capturar el error aquí
+                    $_SESSION["Result"] = [
+                        "status" => false,
+                        "mensaje" => "Error al enviar el correo: " . $e->getMessage(),
+                    ];
+                }
+            
+                // 3. Si el correo fue enviado correctamente, procesamos la compra
+                if ($envioExitoso) {
+                    // 4. Ejecutar compra (cambia Estado = 1)
+                    $resultado = $OfertasModel->comprarCupones('Tarjeta');
+            
+                    if ($resultado) {
+                        $_SESSION["Result"] = [
+                            "status" => true,
+                            "mensaje" => "Cupones comprados con éxito. Revisa tu correo.",
+                        ];
+                    } else {
+                        $_SESSION["Result"] = [
+                            "status" => false,
+                            "mensaje" => "Error al comprar los cupones",
+                        ];
+                    }
+                }
+            
+                header("Location: /LACUPONERA/");
+                break;
+                  
         case 'getHistorialCupones':
             $historial = $OfertasModel->getHistorialCupones();
             break;
