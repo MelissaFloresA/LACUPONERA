@@ -20,7 +20,11 @@ if (!isset($_SESSION['ID_Cliente'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="../resources/icionito.ico" type="image/png">
 </head>
-
+<style>
+  .error-message{
+    color:rgb(161, 22, 22);
+  }
+</style>
 <body>
 <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
@@ -106,16 +110,6 @@ if (!isset($_SESSION['ID_Cliente'])) {
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-12">
-                                        <div class="form-group mb-4">
-                                            <label for="nombre">Método de Pago:</label>
-                                            <select name="Metodo_Pago" class="form-select" required>
-                                                <option value="Tarjeta de Credito">Tarjeta de Credito</option>
-                                                <option value="Tarjeta de Debito">Tarjeta de Debito</option>
-                                                <option value="Efectivo">Efectivo</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="col">
                                         <h3 class="fw-bold">Total:</h3>
                                     </div>
@@ -126,10 +120,35 @@ if (!isset($_SESSION['ID_Cliente'])) {
                                                 }, 0); ?>
                                         </h3>
                                     </div>
+                                    <form id="paymentForm">
+                                        <div class="mb-3">
+                                            <label for="cardNumber" class="form-label">Número de Tarjeta</label>
+                                            <input type="text" class="form-control" id="cardNumber"
+                                                placeholder="____ ____ ____ ____" maxlength="19" required
+                                                oninput="this.value = formatearNumeroTarjeta(this);"
+                                                onblur="validarNumeroTarjeta(this);">
+                                            <label id="cardNumberError" class="error-message"></label>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="expiryDate" class="form-label">Fecha de Vencimiento</label>
+                                            <input type="text" class="form-control" id="expiryDate" placeholder="__/__"
+                                                maxlength="5" required
+                                                oninput="this.value = formatearFechaVencimiento(this);"
+                                                onblur="validarFechaVencimiento(this);">
+                                            <label id="expiryDateError" class="error-message"></label>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="cvv" class="form-label">CVV</label>
+                                            <input type="text" class="form-control" id="cvv" placeholder="___" maxlength="3"
+                                                required oninput="this.value = formatearCVV(this);"
+                                                onblur="validarCVV(this);">
+                                            <label id="cvvError" class="error-message"></label>
+                                        </div>
+                                        <div class="card-footer bg-transparent">
+                                        <button type="submit" id="submitButton" class="btn btn-dark rounded-pill px-4" disabled>Pagar</button>
+                                        </div>
+                                    </form>
                                 </div>
-                            </div>
-                            <div class="card-footer bg-transparent">
-                                <button type="submit" class="btn btn-dark rounded-pill px-4">Comprar</button>
                             </div>
                         </div>
                     </form>
@@ -157,6 +176,7 @@ if (!isset($_SESSION['ID_Cliente'])) {
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/tarjeta.js"></script>
     <!--Mensajes-->
     <?php if (isset($_SESSION['Result'])): ?>
         <script>
