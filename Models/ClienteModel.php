@@ -155,4 +155,25 @@ class ClienteModel extends Model
             die("Error al verificar duplicados: " . $e->getMessage());
         }
     }
+
+    public function actualizarContrasena($correo, $contrasenaPlana) {
+        try {
+            if (!$this->conn) {
+                $this->open_db();
+            }
+            
+            // Usamos SHA2 en la consulta SQL y enviamos la contraseña en texto plano
+            $sql = "UPDATE cliente SET Contrasena = SHA2(:contrasena, 256) WHERE Correo = :correo";
+            $stmt = $this->conn->prepare($sql);
+            
+            return $stmt->execute([
+                ':contrasena' => $contrasenaPlana, // Enviamos texto plano aquí
+                ':correo' => $correo
+            ]);
+            
+        } catch (PDOException $e) {
+            error_log("Error al actualizar contraseña: " . $e->getMessage());
+            return false;
+        }
+    }
 }

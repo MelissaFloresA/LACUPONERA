@@ -135,18 +135,57 @@ if (isset($_GET['action'])) {
                 exit;
             }
             break;
-        case 'logout':
-            session_unset();
-            session_destroy();
-            header("Location: /LACUPONERA/ofertas");
-            exit;
-            break;
-        default:
-            header("Location: /LACUPONERA/");
-            exit;
-            break;
+            case 'logout':
+                session_unset();
+                session_destroy();
+                header("Location: /LACUPONERA/ofertas");
+                exit;
+                break;
+            
+            case 'actualizarContrasena':
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    $email = $_POST['email'] ?? '';
+                    $password = trim($_POST['password'] ?? '');
+                    $confirm_password = trim($_POST['confirm_password'] ?? '');
+            
+                    // Validaciones...
+                    
+                    try {
+                        $clienteModel = new ClienteModel();
+                        $user = $clienteModel->obtenerClientePorCorreo($email);
+                        
+                        if (!$user) {
+                            redirectWithError("Correo no registrado", '/LACUPONERA/recuperar-contrasena');
+                            exit;
+                        }
+            
+                        // Enviamos la contraseña en texto plano al modelo
+                        if ($clienteModel->actualizarContrasena($email, $password)) {
+                            $_SESSION['Result'] = [
+                                'status' => true,
+                                'mensaje' => 'Contraseña actualizada correctamente'
+                            ];
+                            header("Location: /LACUPONERA/login");
+                            exit;
+                        } else {
+                            redirectWithError("Error al actualizar", '/LACUPONERA/recuperar-contrasena');
+                            exit;
+                        }
+                    } catch (Exception $e) {
+                        error_log("Error: " . $e->getMessage());
+                        redirectWithError("Error del sistema", '/LACUPONERA/recuperar-contrasena');
+                        exit;
+                    }
+                }
+                break;
+            
+            default:
+                header("Location: /LACUPONERA/");
+                exit;
+                break;
+            }
     }
-}
+
 
 // Redirección por si acceden directamente al script
 header("Location: /LACUPONERA/");

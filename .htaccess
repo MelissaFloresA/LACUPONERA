@@ -22,3 +22,7 @@ RewriteRule ^clientes/registrar?$ controllers/ClientesController.php?action=regi
 RewriteRule ^clientes/verificar-token?$ controllers/ClientesController.php?action=verificarToken [L]
 RewriteRule ^clientes/do-login$ controllers/ClientesController.php?action=login [L]
 RewriteRule ^clientes/do-logout$ controllers/ClientesController.php?action=logout [L]
+
+# REGLAS PARA RECUPERACIÓN DE CONTRASEÑA
+RewriteRule ^recuperar-contrasena/?$ Views/Clientes/RecuperarPassword.php [L]
+RewriteRule ^recuperar-contrasena/actualizar$ controllers/ClientesController.php?action=actualizarContrasena [L]
