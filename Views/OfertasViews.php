@@ -1,5 +1,6 @@
 <?php
-include_once '../Controllers/OfertasController.php';
+include_once __DIR__ . '/../Controllers/OfertasController.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

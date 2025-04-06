@@ -1,5 +1,5 @@
 <?php
-include_once '../Controllers/OfertasController.php';
+include_once __DIR__ . '/../Controllers/OfertasController.php';
 
 if (!isset($_SESSION['ID_Cliente'])) {
     header("Location: /LACUPONERA/");
