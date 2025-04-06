@@ -29,7 +29,7 @@ class ClienteModel extends Model
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([':token' => $token]);
 
-            // Si el token existe, retornamos los datos del cliente
+            // Si el token existe, retornamos los datos del client
             if ($stmt->rowCount() > 0) {
                 return $stmt->fetch(PDO::FETCH_ASSOC); // Retorna los datos del cliente
             } else {
@@ -40,7 +40,7 @@ class ClienteModel extends Model
         }
     }
 
-    //registro de cliente con token aleatorio
+    //registro de cliente con token aleatorio UwU
 
     public function registrarCliente($datos)
 {

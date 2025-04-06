@@ -147,8 +147,6 @@ if (isset($_GET['action'])) {
                     $email = $_POST['email'] ?? '';
                     $password = trim($_POST['password'] ?? '');
                     $confirm_password = trim($_POST['confirm_password'] ?? '');
-            
-                    // Validaciones...
                     
                     try {
                         $clienteModel = new ClienteModel();
