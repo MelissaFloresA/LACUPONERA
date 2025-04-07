@@ -1,28 +1,6 @@
 RewriteEngine On
 RewriteBase /LACUPONERA/
 
-#REGLA PARA VISTAS
-RewriteRule ^/?$ Views/OfertasViews.php?action=getCupones [L]
-RewriteRule ^ofertas/?$ Views/OfertasViews.php?action=getCupones [L]
-RewriteRule ^ofertas/([0-9]+)$ Views/OfertasViews.php?action=getCupones&rubro=$1 [L]
-RewriteRule ^mi-carrito/?$ Views/CarritoView.php?action=getCarrito [L]
-RewriteRule ^mis-cupones/?$ Views/HistorialView.php?action=getHistorialCupones [L]
-
-RewriteRule ^login/?$ Views/Clientes/Login.php [L]
-RewriteRule ^registro/?$ Views/Clientes/Registro_cliente.php [L]
-RewriteRule ^confirmar_token/?$ Views/Clientes/Confirmar_token.php [L]
-RewriteRule ^dashboard/?$ Views/Clientes/dashboard.php [L]
-
-#REGLA PARA ACCIONES
-RewriteRule ^cupones/do-agregar?$ Controllers/OfertasController.php?action=agregarCupon [L]
-RewriteRule ^cupones/do-actualizar-cantidad?$ Controllers/OfertasController.php?action=actualizarCantidad [L]
-RewriteRule ^cupones/do-comprar?$ Controllers/OfertasController.php?action=comprarCupones [L]
-
-RewriteRule ^clientes/registrar?$ controllers/ClientesController.php?action=registrar [L]
-RewriteRule ^clientes/verificar-token?$ controllers/ClientesController.php?action=verificarToken [L]
-RewriteRule ^clientes/do-login$ controllers/ClientesController.php?action=login [L]
-RewriteRule ^clientes/do-logout$ controllers/ClientesController.php?action=logout [L]
-
-# REGLAS PARA RECUPERACIÓN DE CONTRASEÑA
-RewriteRule ^recuperar-contrasena/?$ Views/Clientes/RecuperarPassword.php [L]
-RewriteRule ^recuperar-contrasena/actualizar$ controllers/ClientesController.php?action=actualizarContrasena [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
