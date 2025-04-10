@@ -98,7 +98,7 @@ class ClienteModel extends Model
             $mail->Host       = 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
             $mail->Username   = 'udbcuponera@gmail.com';
-            $mail->Password   = 'tmhs sfqd ehhw vsgc';
+            $mail->Password   = 'risc ioii rtyj hwgn';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = 587;
 
