@@ -79,7 +79,7 @@ if (!isset($_SESSION['ID_Cliente'])) {
                 <?php
                     $estado = 'disponible';
                     $fechaActual = date('Y-m-d');
-                    if ($cupon['Estado'] === 'Canjeado') {
+                    if ($cupon['Estado_Cupon'] === 'Canjeado') {
                         $estado = 'canjeado';
                     } elseif ($cupon['Fecha_Final'] < $fechaActual) {
                         $estado = 'expirado';

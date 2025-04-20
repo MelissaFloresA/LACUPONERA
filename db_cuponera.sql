@@ -136,6 +136,28 @@ CREATE TABLE `cupones` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+ALTER TABLE CUPONES
+MODIFY Estado_Cupon ENUM('Disponible', 'Canjeado', 'Expirado') DEFAULT 'Disponible';
+
+/*Procedimiento para marcar cupones como expirados*/
+DELIMITER ;;
+CREATE PROCEDURE ActualizarCuponesExpirados()
+BEGIN
+    UPDATE CUPONES
+    SET Estado_Cupon = 'Expirado'
+    WHERE Estado_Cupon = 'Disponible' AND Fecha_Final< NOW();
+END ;;
+DELIMITER ;
+
+/*Para actualizar los cupones*/
+SET GLOBAL event_scheduler = ON;
+
+DELIMITER ;;
+CREATE EVENT IF NOT EXISTS ev_actualizar_cupones_expirados
+ON SCHEDULE EVERY 1 DAY
+DO
+  CALL ActualizarCuponesExpirados();;
+DELIMITER ;
 --
 -- Dumping data for table `cupones`
 --
