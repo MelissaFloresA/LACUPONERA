@@ -23,109 +23,146 @@ if (!isset($_SESSION['ID_Cliente'])) {
 
 <body>
 <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="ms-3  navbar-brand text-white" href="/LACUPONERA/ofertas">
-                <i class="fas fa-tag"></i> Cuponera
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse text-white" id="navbar">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <?php if (isset($_SESSION['ID_Cliente'])): ?>
-                        <li class="nav-item ">
-                            <a class="nav-link text-white" href="/LACUPONERA/mi-carrito">
-                                <i class="fas fa-shopping-cart"></i> Mi Carrito
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/LACUPONERA/mis-cupones">
-                                <i class="fas fa-ticket-alt"></i> Mis Cupones
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/LACUPONERA/clientes/do-logout">
-                                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                            </a>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/LACUPONERA/login">
-                                <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </div>
+    <div class="container-fluid">
+        <a class="ms-3 navbar-brand text-white" href="/LACUPONERA/ofertas">
+            <i class="fas fa-tag"></i> Cuponera
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-white" id="navbar">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <?php if (isset($_SESSION['ID_Cliente'])): ?>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/LACUPONERA/mi-carrito">
+                            <i class="fas fa-shopping-cart"></i> Mi Carrito
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/LACUPONERA/mis-cupones">
+                            <i class="fas fa-ticket-alt"></i> Mis Cupones
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/LACUPONERA/clientes/do-logout">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </a>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/LACUPONERA/login">
+                            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <div class="container">
-        <?php if (isset($_SESSION['Nombre'])): ?>
-            <h1 class="my-4">Cupones de <strong> <?= $_SESSION['Nombre'] ?> </strong></h1>
-        <?php endif; ?>
+<div class="container">
+    <?php if (isset($_SESSION['Nombre'])): ?>
+        <h1 class="my-4">Cupones de <strong><?= $_SESSION['Nombre'] ?></strong></h1>
 
-        <div class="row">
-            <?php if (!empty($historial)): ?>
-                <?php foreach ($historial as $cupon): ?>
-                    <div class="col-md-6 mb-4">
-                        <div class="card coupon-card flex-row text-white border-0 py-4 px-5 overflow-hidden mb-4">
-                            <div class="card-body p-0 mb-4">
-                                <h4 class="card-title fw-bold"><?= $cupon['Titulo'] ?></h4>
-                                <h5 class="fw-bold mb-1"><?= $cupon['PrecioO'] ?> <del class="text-muted">$<?= $cupon['PrecioR'] ?></del></h5>
-                                <p><?= $cupon['Descripcion'] ?></p>
-                                <h5 class=""><span class="text-muted">Código:</span> <?= $cupon['Codigo_Cupon'] ?></h5>
-                            </div>
-                            <div class="w-100 bg-black bg-opacity-50 d-flex justify-content-between text-white-50 py-1 px-2 rounded rounded-top-0 position-absolute bottom-0 start-0">
-                                <p class="m-0">Válido hasta <?= $cupon['Fecha_Final'] ?></p>
-                                <p class="m-0">Cantidad: <?= $cupon['Cantidad'] ?></p>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <img src="<?= $cupon['Imagen'] ?>" alt="Coupon Image" class="rounded" style="width: 80px; height: 80px; object-fit: cover;">
-                            </div>
+        <!-- Filtros -->
+        <div class="mb-4 d-flex gap-2">
+            <button class="btn btn-outline-primary filter-btn active" data-filter="todos">Todos</button>
+            <button class="btn btn-outline-success filter-btn" data-filter="disponible">Disponibles</button>
+            <button class="btn btn-outline-warning filter-btn" data-filter="canjeado">Canjeados</button>
+            <button class="btn btn-outline-danger filter-btn" data-filter="expirado">Expirados</button>
+        </div>
+    <?php endif; ?>
+
+    <div class="row">
+        <?php if (!empty($historial)): ?>
+            <?php foreach ($historial as $cupon): ?>
+                <?php
+                    $estado = 'disponible';
+                    $fechaActual = date('Y-m-d');
+                    if ($cupon['Estado'] === 'Canjeado') {
+                        $estado = 'canjeado';
+                    } elseif ($cupon['Fecha_Final'] < $fechaActual) {
+                        $estado = 'expirado';
+                    }
+                ?>
+                <div class="col-md-6 mb-4 cupon-item" data-estado="<?= $estado ?>">
+                    <div class="card coupon-card flex-row text-white border-0 py-4 px-5 overflow-hidden mb-4 <?= $estado ?>">
+                        <div class="card-body p-0 mb-4">
+                            <h4 class="card-title fw-bold"><?= $cupon['Titulo'] ?></h4>
+                            <h5 class="fw-bold mb-1">$<?= $cupon['PrecioO'] ?> <del class="text-muted">$<?= $cupon['PrecioR'] ?></del></h5>
+                            <p><?= $cupon['Descripcion'] ?></p>
+                            <h5><span class="text-muted">Código:</span> <?= $cupon['Codigo_Cupon'] ?></h5>
+                        </div>
+                        <div class="w-100 bg-black bg-opacity-50 d-flex justify-content-between text-white-50 py-1 px-2 rounded-top-0 position-absolute bottom-0 start-0">
+                            <p class="m-0">Válido hasta <?= $cupon['Fecha_Final'] ?></p>
+                            <p class="m-0">Cantidad: <?= $cupon['Cantidad'] ?></p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <img src="<?= $cupon['Imagen'] ?>" alt="Imagen Cupon" class="rounded" style="width: 80px; height: 80px; object-fit: cover;">
                         </div>
                     </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="text-center w-100 font-weight-bold">No has comprado cupones.</p>
-            <?php endif; ?>
-        </div>
-    </div>
-
-
-    <!--Toast de Mensajes-->
-    <button type="button" class="d-none" id="toastBtn"></button>
-
-    <div class="toast-container position-fixed top-0 end-0 p-3">
-        <div id="toast" class="toast align-items-center <?= $_SESSION['Result']['status'] ? 'text-bg-success' : 'text-bg-danger' ?> border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">
-                    <?php echo htmlspecialchars($_SESSION['Result']['mensaje']); ?>
                 </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="text-center w-100 font-weight-bold">No has comprado cupones.</p>
+        <?php endif; ?>
+    </div>
+</div>
+
+<!-- Toast de Mensajes -->
+<button type="button" class="d-none" id="toastBtn"></button>
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <div id="toast" class="toast align-items-center <?= $_SESSION['Result']['status'] ? 'text-bg-success' : 'text-bg-danger' ?> border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <?= htmlspecialchars($_SESSION['Result']['mensaje']) ?>
             </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <!--Mensajes-->
-    <?php if (isset($_SESSION['Result'])): ?>
-        <script>
-            const toastTrigger = document.getElementById('toastBtn')
-            const toast = document.getElementById('toast')
+<!-- Script para mostrar toast -->
+<?php if (isset($_SESSION['Result'])): ?>
+    <script>
+        const toastTrigger = document.getElementById('toastBtn');
+        const toast = document.getElementById('toast');
+        if (toastTrigger) {
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
+            toastTrigger.addEventListener('click', () => {
+                toastBootstrap.show();
+            });
+        }
+        toastTrigger.click();
+    </script>
+    <?php unset($_SESSION['Result']); ?>
+<?php endif; ?>
 
-            if (toastTrigger) {
-                const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast)
-                toastTrigger.addEventListener('click', () => {
-                    toastBootstrap.show()
-                })
-            }
+<!-- Script de filtro de cupones -->
+<script>
+    const buttons = document.querySelectorAll('.filter-btn');
+    const cupones = document.querySelectorAll('.cupon-item');
 
-            toastTrigger.click();
-        </script>
-        <?php unset($_SESSION['Result']); ?>
-    <?php endif; ?>
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const filtro = btn.getAttribute('data-filter');
+
+            cupones.forEach(cupon => {
+                if (filtro === 'todos' || cupon.getAttribute('data-estado') === filtro) {
+                    cupon.style.display = 'block';
+                } else {
+                    cupon.style.display = 'none';
+                }
+            });
+
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+</script>
 
 </body>
 
