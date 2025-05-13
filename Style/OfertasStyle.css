@@ -1,0 +1,82 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.coupon-card,
+.carrito-card{
+    background-color: #2e79ea;
+}
+
+.navbar, .coupon-footer{
+    background-color: #173C74;
+}
+
+.coupon-card::before,
+.coupon-card::after {
+    content: "";
+    position: absolute;
+    background: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.coupon-card::before {
+    left: -30px;
+}
+
+.coupon-card::after {
+    right: -30px;
+}
+
+
+.coupon-card {
+    background-color: #2e79ea;
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+}
+
+.coupon-card .card-body {
+    padding: 1.25rem;
+}
+
+.coupon-footer {
+    font-size: 0.85rem;
+}
+
+.img-fluid.object-fit-cover {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.circle-left,
+.circle-right {
+    content: "";
+    position: absolute;
+    background: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.circle-left {
+    left: -30px;
+}
+
+.circle-right {
+    right: -30px;
+}
